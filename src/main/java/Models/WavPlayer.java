@@ -6,7 +6,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * Created by dmitry on 2/28/17.
+ * Екатериона  on 2/28/17.
  */
 
 public class WavPlayer {
@@ -19,6 +19,7 @@ public class WavPlayer {
     private int startSample;
     private int sampleWhenPlayStarted = -1;
 
+    // Конструктор
     public WavPlayer (File file) throws IOException {
         inputStream = new BufferedInputStream(new FileInputStream(file));
     }
@@ -28,6 +29,7 @@ public class WavPlayer {
             listeners.add(l);
         }
     }
+
 
     public int getAudioFrame () {
         if (sourceDataLine == null) return 0;

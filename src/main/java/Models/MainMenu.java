@@ -8,8 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * Created by dmitry on 2/28/17.
+ * Екатериона  on 2/28/17.
  */
+
 public class MainMenu extends JFrame {
 
     private WavPlayer wavPlayer;
@@ -40,7 +41,7 @@ public class MainMenu extends JFrame {
     private JFileChooser fileChooser;
 
     public MainMenu() {
-        super("Курсовая работа. Эквалайзер");
+        super("Курсовая работа. Максименко Екатерина.");
         setContentPane(rootPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +51,7 @@ public class MainMenu extends JFrame {
 
         playButton.setEnabled(false);
 
+        // Слайдер 1. Вывод значения в Label1.
         slider1.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent changeEvent) {
                 JSlider slider = (JSlider)changeEvent.getSource();
@@ -58,7 +60,7 @@ public class MainMenu extends JFrame {
                 }
             }
         });
-
+        // Слайдер 2. Вывод значения в Label2.
         slider2.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
@@ -68,6 +70,7 @@ public class MainMenu extends JFrame {
                 }
             }
         });
+        // ...
         slider3.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
@@ -105,14 +108,21 @@ public class MainMenu extends JFrame {
             }
         });
 
+        // Лисенер кнопки открытия файла
         openButton.addActionListener(new ActionListener() {
+            // Перегружаем метод
             @Override
+            // Слушаем событие
             public void actionPerformed(ActionEvent actionEvent) {
-                //Handle open button action.
+                // Если эта кнопка нажата, то
                 if (actionEvent.getSource() == openButton) {
+
+                    // Открываем диалог поиска файла
                     int returnVal = fileChooser.showOpenDialog(MainMenu.this);
 
+                    // Если файл был выбран
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        // Назначаем переменной FILE file выбранную песню (путь)
                         file = fileChooser.getSelectedFile();
                         playButton.setEnabled(true);
                     }
@@ -120,30 +130,37 @@ public class MainMenu extends JFrame {
             }
         });
 
+        // Кнопка запуска песни
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
+                // Если файла нет, то гг
                 if (file != null) {
                     try {
+                        // Назначаем экземлпяр класса проигрыв
                         wavPlayer = new WavPlayer(file);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                // Начинаем песню с самого начала (нулевой Sample)
                 wavPlayer.play(-1);
+
                 playButton.setEnabled(false);
                 pauseButton.setEnabled(true);
                 stopButton.setEnabled(true);
             }
 
         });
+        // Кнопка остановки
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                // Вызов метода остановки
                 wavPlayer.stop();
                 playButton.setEnabled(true);
             }
         });
-
+        // Кнопка паузы
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
